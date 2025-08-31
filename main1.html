@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookCycle - Recycling Knowledge, Saving Money</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8fffe;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: linear-gradient(135deg, #4ade80, #22d3ee);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Page Container */
+        .page {
+            display: none;
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #4ade80, #22d3ee);
+            padding: 4rem 0;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #22d3ee;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Search Bar */
+        .search-section {
+            padding: 3rem 0;
+            background: white;
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .search-bar {
+            display: flex;
+            background: white;
+            border-radius: 50px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1.5rem 2rem;
+            border: none;
+            font-size: 1.1rem;
+            outline: none;
+        }
+
+        .search-btn {
+            background: #22d3ee;
+            color: white;
+            border: none;
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-item {
+            padding: 0.8rem 1.5rem;
+            background: #f0f9ff;
+            border: 2px solid #e0f2fe;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-item:hover {
+            background: #22d3ee;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 4rem 0;
+            background: #f8fffe;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #1e293b;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4ade80, #22d3ee);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .step h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Categories */
+        .categories {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .category-card {
+            background: linear-gradient(135deg, #4ade80, #22d3ee);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(34, 211, 238, 0.3);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Benefits */
+        .benefits {
+            padding: 4rem 0;
+            background: #f8fffe;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .benefit {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .benefit:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #22d3ee;
+        }
+
+        /* Books Grid */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .book-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .book-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #22d3ee;
+        }
+
+        .book-info {
+            padding: 1.5rem;
+        }
+
+        .book-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .book-author {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .book-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #22d3ee;
+            margin-bottom: 0.5rem;
+        }
+
+        .book-distance {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* Forms */
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0f2fe;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #22d3ee;
+            box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #22d3ee;
+        }
+
+        .footer-section a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: #22d3ee;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px);
+            background: #4ade80;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: linear-gradient(135deg, #4ade80, #22d3ee);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.mobile-open {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .search-bar {
+                flex-direction: column;
+                border-radius: 15px;
+            }
+
+            .search-input, .search-btn {
+                border-radius: 0;
+            }
+
+            .search-btn {
+                border-radius: 0 0 15px 15px;
+            }
+
+            .filters {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 1rem;
+            }
+
+            .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1rem;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .hero-content, .section-container, .search-container, .form-container {
+                padding: 0 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .books-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                BookCycle
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" onclick="showPage('home')" class="nav-link active">Home</a></li>
+                <li><a href="#" onclick="showPage('buy')" class="nav-link">Buy Books</a></li>
+                <li><a href="#" onclick="showPage('sell')" class="nav-link">Sell Books</a></li>
+                <li><a href="#" onclick="showPage('about')" class="nav-link">About Us</a></li>
+                <li><a href="#" onclick="showPage('contact')" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="mobile-menu" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Recycle Knowledge, Save Money</h1>
+                <p>Buy and sell second-hand books at unbeatable prices. Join thousands of students and book lovers in our eco-friendly marketplace.</p>
+                <div class="cta-buttons">
+                    <a href="#" onclick="showPage('sell')" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Sell Your Book
+                    </a>
+                    <a href="#" onclick="showPage('buy')" class="btn btn-secondary">
+                        <i class="fas fa-search"></i>
+                        Find a Book
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-container">
+                <div class="search-bar">
+                    <input type="text" class="search-input" placeholder="Search books, authors, or ISBN...">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="filters">
+                    <div class="filter-item">Under 5km</div>
+                    <div class="filter-item">₹0 - ₹200</div>
+                    <div class="filter-item">₹200 - ₹500</div>
+                    <div class="filter-item">Novels</div>
+                    <div class="filter-item">Textbooks</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section class="how-it-works">
+            <div class="section-container">
+                <h2 class="section-title">How It Works</h2>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-icon">
+                            <i class="fas fa-upload"></i>
+                        </div>
+                        <h3>1. Post Your Book</h3>
+                        <p>Upload photos and details of your book in just a few clicks. Set your price and location.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>2. Find & Connect</h3>
+                        <p>Browse available books near you. Contact sellers directly through our secure messaging system.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>3. Meet & Exchange</h3>
+                        <p>Meet in a safe location, inspect the book, and complete your eco-friendly transaction.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories -->
+        <section class="categories">
+            <div class="section-container">
+                <h2 class="section-title">Book Categories</h2>
+                <div class="category-grid">
+                    <div class="category-card">
+                        <div class="category-icon">📚</div>
+                        <h3>Novels</h3>
+                        <p>Fiction, Romance, Mystery, Thriller</p>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">📖</div>
+                        <h3>Textbooks</h3>
+                        <p>Academic books for all subjects</p>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">🎯</div>
+                        <h3>Competitive Exams</h3>
+                        <p>JEE, NEET, CAT, GRE, UPSC</p>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">💼</div>
+                        <h3>Professional Books</h3>
+                        <p>Business, Technology, Self-help</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits -->
+        <section class="benefits">
+            <div class="section-container">
+                <h2 class="section-title">Why Choose BookCycle?</h2>
+                <div class="benefits-grid">
+                    <div class="benefit">
+                        <div class="benefit-icon">💰</div>
+                        <h3>Save Money</h3>
+                        <p>Get books at 50-80% lower prices than retail. Perfect for students on a budget.</p>
+                    </div>
+                    <div class="benefit">
+                        <div class="benefit-icon">🌱</div>
+                        <h3>Eco-Friendly</h3>
+                        <p>Reduce paper waste by giving books a second life. Help save our planet.</p>
+                    </div>
+                    <div class="benefit">
+                        <div class="benefit-icon">⚡</div>
+                        <h3>Easy to Use</h3>
+                        <p>Simple interface, secure messaging, and local meetups make buying easy.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Buy Books Page -->
+    <div id="buy" class="page">
+        <section class="search-section">
+            <div class="search-container">
+                <h2 class="section-title">Buy Second-Hand Books</h2>
+                <div class="search-bar">
+                    <input type="text" class="search-input" placeholder="Search books, authors, or ISBN...">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="filters">
+                    <div class="filter-item">All Categories</div>
+                    <div class="filter-item">Under 5km</div>
+                    <div class="filter-item">₹0 - ₹200</div>
+                    <div class="filter-item">₹200 - ₹500</div>
+                    <div class="filter-item">₹500+</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="books-grid" id="booksGrid">
+            <!-- Books will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Sell Books Page -->
+    <div id="sell" class="page">
+        <section class="search-section">
+            <div class="form-container">
+                <h2 class="section-title">Sell Your Book</h2>
+                <form id="sellBookForm">
+                    <div class="form-group">
+                        <label class="form-label">Book Title *</label>
+                        <input type="text" class="form-input" placeholder="Enter book title" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Author *</label>
+                        <input type="text" class="form-input" placeholder="Enter author name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Category *</label>
+                        <select class="form-input" required>
+                            <option value="">Select category</option>
+                            <option value="novels">Novels</option>
+                            <option value="textbooks">Textbooks</option>
+                            <option value="competitive">Competitive Exams</option>
+                            <option value="professional">Professional Books</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Price (₹) *</label>
+                        <input type="number" class="form-input" placeholder="Enter price" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Location *</label>
+                        <input type="text" class="form-input" placeholder="Enter your location" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Book Condition *</label>
+                        <select class="form-input" required>
+                            <option value="">Select condition</option>
+                            <option value="like-new">Like New</option>
+                            <option value="good">Good</option>
+                            <option value="fair">Fair</option>
+                            <option value="poor">Poor</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-input form-textarea" placeholder="Add any additional details about the book..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Upload Photos</label>
+                        <input type="file" class="form-input" multiple accept="image/*">
+                        <small style="color: #666;">Upload up to 5 photos of your book</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                        <i class="fas fa-plus"></i>
+                        Post Your Book
+                    </button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Us Page -->
+    <div id="about" class="page">
+        <section class="hero" style="padding: 2rem 0;">
+            <div class="hero-content">
+                <h1 style="font-size: 2.5rem;">About BookCycle</h1>
+                <p>Recycling Knowledge, Saving Money</p>
+            </div>
+        </section>
+
+        <section class="benefits">
+            <div class="section-container">
+                <h2 class="section-title">Our Mission</h2>
+                <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: #666;">
+                    BookCycle is dedicated to making education affordable and accessible while promoting environmental sustainability. 
+                    We believe that knowledge should be shared, and every book deserves a second life.
+                </p>
+
+                <div class="benefits-grid">
+                    <div class="benefit">
+                        <div class="benefit-icon">🎓</div>
+                        <h3>Student-Focused</h3>
+                        <p>Designed specifically for students who need affordable textbooks and study materials.</p>
+                    </div>
+                    <div class="benefit">
+                        <div class="benefit-icon">🌍</div>
+                        <h3>Environmental Impact</h3>
+                        <p>Every book recycled through our platform saves trees and reduces carbon footprint.</p>
+                    </div>
+                    <div class="benefit">
+                        <div class="benefit-icon">🤝</div>
+                        <h3>Community Driven</h3>
+                        <p>Building a community of book lovers who believe in sharing knowledge and resources.</p>
+                    </div>
+                </div>
+
+                <h2 class="section-title" style="margin-top: 4rem;">Our Team</h2>
+                <div class="benefits-grid">
+                    <div class="benefit" style="text-align: center;">
+                        <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #4ade80, #22d3ee); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white;">👨‍💻</div>
+                        <h3>Alex Johnson</h3>
+                        <p>Founder & CEO<br>Passionate about education technology</p>
+                    </div>
+                    <div class="benefit" style="text-align: center;">
+                        <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #4ade80, #22d3ee); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white;">👩‍🎨</div>
+                        <h3>Sarah Wilson</h3>
+                        <p>Product Designer<br>Creating beautiful user experiences</p>
+                    </div>
+                    <div class="benefit" style="text-align: center;">
+                        <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #4ade80, #22d3ee); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white;">👨‍🔧</div>
+                        <h3>Mike Chen</h3>
+                        <p>Lead Developer<br>Building robust and scalable solutions</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <section class="search-section">
+            <div class="form-container">
+                <h2 class="section-title">Contact Us</h2>
+                <p style="text-align: center; margin-bottom: 2rem; color: #666;">
+                    Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+                </p>
+                
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label class="form-label">Full Name *</label>
+                        <input type="text" class="form-input" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address *</label>
+                        <input type="email" class="form-input" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Subject *</label>
+                        <input type="text" class="form-input" placeholder="What is this about?" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Message *</label>
+                        <textarea class="form-input form-textarea" placeholder="Tell us more about your inquiry..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                        <i class="fas fa-paper-plane"></i>
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <section class="benefits">
+            <div class="section-container">
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="benefits-grid">
+                    <div class="benefit" style="text-align: center;">
+                        <div class="benefit-icon">📧</div>
+                        <h3>Email Us</h3>
+                        <p>support@bookcycle.com<br>We'll respond within 24 hours</p>
+                    </div>
+                    <div class="benefit" style="text-align: center;">
+                        <div class="benefit-icon">📱</div>
+                        <h3>Call Us</h3>
+                        <p>+91 98765 43210<br>Mon-Fri, 9 AM to 6 PM</p>
+                    </div>
+                    <div class="benefit" style="text-align: center;">
+                        <div class="benefit-icon">📍</div>
+                        <h3>Visit Us</h3>
+                        <p>123 Knowledge Street<br>Education City, India</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>BookCycle</h3>
+                <p>Recycling Knowledge, Saving Money. Join thousands of students in our eco-friendly book marketplace.</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#" onclick="showPage('home')">Home</a>
+                <a href="#" onclick="showPage('buy')">Buy Books</a>
+                <a href="#" onclick="showPage('sell')">Sell Books</a>
+                <a href="#" onclick="showPage('about')">About Us</a>
+                <a href="#" onclick="showPage('contact')">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Categories</h3>
+                <a href="#">Novels</a>
+                <a href="#">Textbooks</a>
+                <a href="#">Competitive Exams</a>
+                <a href="#">Professional Books</a>
+                <a href="#">Children's Books</a>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <a href="#">Help Center</a>
+                <a href="#">Safety Tips</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Report an Issue</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 BookCycle. All rights reserved. Made with ❤️ for book lovers.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sample book data
+        const sampleBooks = [
+            {
+                id: 1,
+                title: "The Great Gatsby",
+                author: "F. Scott Fitzgerald",
+                price: 150,
+                distance: "2.3 km",
+                category: "novels",
+                condition: "good"
+            },
+            {
+                id: 2,
+                title: "Data Structures & Algorithms",
+                author: "Thomas H. Cormen",
+                price: 450,
+                distance: "1.8 km",
+                category: "textbooks",
+                condition: "like-new"
+            },
+            {
+                id: 3,
+                title: "JEE Main Mathematics",
+                author: "R.D. Sharma",
+                price: 280,
+                distance: "3.5 km",
+                category: "competitive",
+                condition: "good"
+            },
+            {
+                id: 4,
+                title: "Think and Grow Rich",
+                author: "Napoleon Hill",
+                price: 120,
+                distance: "0.9 km",
+                category: "professional",
+                condition: "fair"
+            },
+            {
+                id: 5,
+                title: "Harry Potter & The Sorcerer's Stone",
+                author: "J.K. Rowling",
+                price: 200,
+                distance: "4.2 km",
+                category: "novels",
+                condition: "good"
+            },
+            {
+                id: 6,
+                title: "Organic Chemistry",
+                author: "Morrison & Boyd",
+                price: 380,
+                distance: "2.7 km",
+                category: "textbooks",
+                condition: "good"
+            },
+            {
+                id: 7,
+                title: "NEET Biology",
+                author: "Trueman",
+                price: 320,
+                distance: "1.5 km",
+                category: "competitive",
+                condition: "like-new"
+            },
+            {
+                id: 8,
+                title: "Clean Code",
+                author: "Robert C. Martin",
+                price: 250,
+                distance: "3.1 km",
+                category: "professional",
+                condition: "good"
+            }
+        ];
+
+        // Navigation functions
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Close mobile menu if open
+            document.getElementById('navLinks').classList.remove('mobile-open');
+            
+            // Load books if on buy page
+            if (pageId === 'buy') {
+                loadBooks();
+            }
+        }
+
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('mobile-open');
+        }
+
+        // Load books function
+        function loadBooks() {
+            const booksGrid = document.getElementById('booksGrid');
+            booksGrid.innerHTML = '';
+            
+            sampleBooks.forEach(book => {
+                const bookCard = document.createElement('div');
+                bookCard.className = 'book-card';
+                bookCard.innerHTML = `
+                    <div class="book-image">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="book-info">
+                        <div class="book-title">${book.title}</div>
+                        <div class="book-author">by ${book.author}</div>
+                        <div class="book-price">₹${book.price}</div>
+                        <div class="book-distance">${book.distance} away</div>
+                        <button class="btn btn-primary" style="margin-top: 1rem; width: 100%; justify-content: center;">
+                            <i class="fas fa-message"></i>
+                            Contact Seller
+                        </button>
+                    </div>
+                `;
+                booksGrid.appendChild(bookCard);
+            });
+        }
+
+        // Form submissions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sell book form
+            const sellForm = document.getElementById('sellBookForm');
+            if (sellForm) {
+                sellForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Thank you! Your book has been posted successfully. You will be notified when buyers show interest.');
+                });
+            }
+
+            // Contact form
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Thank you for your message! We will get back to you within 24 hours.');
+                });
+            }
+
+            // Load books on initial page load if on buy page
+            if (document.getElementById('buy').classList.contains('active')) {
+                loadBooks();
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navbar
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'linear-gradient(135deg, rgba(74, 222, 128, 0.95), rgba(34, 211, 238, 0.95))';
+            } else {
+                navbar.style.background = 'linear-gradient(135deg, #4ade80, #22d3ee)';
+            }
+        });
+
+        // Filter functionality for buy page
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('filter-item')) {
+                // Toggle active state
+                e.target.classList.toggle('active');
+                
+                // Add active styling
+                const activeFilters = document.querySelectorAll('.filter-item.active');
+                activeFilters.forEach(filter => {
+                    filter.style.background = '#22d3ee';
+                    filter.style.color = 'white';
+                });
+                
+                // Remove styling from inactive filters
+                document.querySelectorAll('.filter-item:not(.active)').forEach(filter => {
+                    filter.style.background = '#f0f9ff';
+                    filter.style.color = '#333';
+                });
+            }
+        });
+
+        // Search functionality
+        document.querySelectorAll('.search-input').forEach(input => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch(this.value);
+                }
+            });
+        });
+
+        document.querySelectorAll('.search-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const input = this.previousElementSibling;
+                performSearch(input.value);
+            });
+        });
+
+        function performSearch(query) {
+            if (query.trim()) {
+                // If on home page, switch to buy page
+                if (document.getElementById('home').classList.contains('active')) {
+                    showPage('buy');
+                }
+                
+                // Filter books based on search query
+                const filteredBooks = sampleBooks.filter(book => 
+                    book.title.toLowerCase().includes(query.toLowerCase()) ||
+                    book.author.toLowerCase().includes(query.toLowerCase())
+                );
+                
+                displayFilteredBooks(filteredBooks);
+            }
+        }
+
+        function displayFilteredBooks(books) {
+            const booksGrid = document.getElementById('booksGrid');
+            booksGrid.innerHTML = '';
+            
+            if (books.length === 0) {
+                booksGrid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; font-size: 1.2rem; color: #666;">No books found matching your search.</p>';
+                return;
+            }
+            
+            books.forEach(book => {
+                const bookCard = document.createElement('div');
+                bookCard.className = 'book-card';
+                bookCard.innerHTML = `
+                    <div class="book-image">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="book-info">
+                        <div class="book-title">${book.title}</div>
+                        <div class="book-author">by ${book.author}</div>
+                        <div class="book-price">₹${book.price}</div>
+                        <div class="book-distance">${book.distance} away</div>
+                        <button class="btn btn-primary" style="margin-top: 1rem; width: 100%; justify-content: center;">
+                            <i class="fas fa-message"></i>
+                            Contact Seller
+                        </button>
+                    </div>
+                `;
+                booksGrid.appendChild(bookCard);
+            });
+        }
+
+        // Add loading animation for better UX
+        function showLoading() {
+            const booksGrid = document.getElementById('booksGrid');
+            booksGrid.innerHTML = '<div style="text-align: center; grid-column: 1/-1; padding: 2rem;"><i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: #22d3ee;"></i><p style="margin-top: 1rem;">Loading books...</p></div>';
+        }
+
+        // Add intersection observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('.step, .category-card, .benefit, .book-card');
+            animateElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
